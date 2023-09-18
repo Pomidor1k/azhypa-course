@@ -1,0 +1,142 @@
+{
+    "welcomeToCourseMsg": {
+      "ru": "Добро пожаловать на мастеркласс \nПРОДВИНУТЫЙ ВИЗУАЛ. \n\nПосле оплаты вернись сюда, доступы \nпридут в течение нескольких минут. \n\nССЫЛКА",
+      "en": "Welcome to the\n\nADVANCED VISUAL \n\nmasterclass. \n\nAfter the payment, come back here, accesses will come within a few minutes \n\nLINK"
+    },
+    "chooseRateMsg": {
+      "ru": "Добро пожаловать на мастеркласс \nПРОДВИНУТЫЙ ВИЗУАЛ. \n\nПосле оплаты вернись сюда, доступы \nпридут в течение нескольких минут. \n\nВы можете выбрать уровень подписки ниже и произвести оплату",
+      "en": "Welcome to the\n\nADVANCED VISUAL \n\nmasterclass. \n\nAfter the payment, come back here, accesses will come within a few minutes \n\nYou can choose your subscription level below and pay"
+    },
+    "chooseProMsg": {
+      "ru": "Вы выбрали уровень подписки PRO, оплата доступна по ссылке ниже",
+      "en": "You have chosen the PRO subscription level, payment is available at the link below"
+    },
+    "chooseAdvancedMsg": {
+      "ru": "Вы выбрали уровень подписки ADVANCED, оплата доступна по ссылке ниже",
+      "en": "You have chosen the ADVANCED subscription level, payment is available at the link below"
+    },
+    "chooseBasicMsg": {
+      "ru": "Вы выбрали уровень подписки BASIC, оплата доступна по ссылке ниже",
+      "en": "You have chosen the BASIC subscription level, payment is available at the link below"
+    },
+    "noPaymentMsg": {
+      "ru": "Оплата не была произведена.",
+      "en": "Payment has not been made."
+    },
+    "fisrtVideoIntroMsg": {
+        "ru": "Смотри первый урок, выполняй задание и переваривай информацию \n\nПлан такой: \n\n✅Разберемся что за эффект, который заставляет визуалы работать. \n\n✅Как человечество гонялось за этим эффектом 40000 лет. \n\n✅Как его адаптируют великие художники, а мы этого не замечаем. \n\n✅Как научиться замечать. \n\n✅Основная миссия художника ( всегда держи в голове, чтобы делать круто )",
+        "en": "Watch the first lesson, complete the task and digest the information. \n\nThe plan is as follows: \n\n✅Let's figure out what kind of effect makes the visuals work. \n\n✅How humanity has been chasing this effect for 40,000 years. \n\n✅How great artists adapt it, and we don't notice it. \n\n✅How to learn to notice. \n\n✅The main mission of the artist (always keep in mind to do cool)"
+    },
+    "firstVideoLinkMsg": {
+        "ru": "Ссылка на видео",
+        "en": "Link to the video"
+    },
+    "firstVideoOutroMsg": {
+        "ru": "Теперь давай убедимся, что ты всё понял из первой части. Это супер важно, на это я буду опираться дальше. \n\nПройди небольшой тест. Ошибки не допускаются. \n\nОтветишь правильно - перейдём к \nследующему уроку.",
+        "en": "Now let's make sure you understand everything from the first part. This is very important, I will rely on it further. \n\nTake a little test. Mistakes are not allowed. \n\nIf you answer correctly, let's move on to the next lesson."
+    },
+    "firstTestCompleteMsg": {
+      "ru": "Проверить результат теста и перейти к следующей части",
+      "en": "Check the test result and proceed to the next part"
+    },
+    "firstTestNotCompleted": {
+      "ru": "Вам нужно пройти тест чтобы перейти к следующей части",
+      "en": "You need to pass the test to proceed to the next part"
+    },
+    "secondVideoIntroMsg": {
+      "ru": "Движемся дальше \n\nВторой урок покажет: \n\n✅Как достичь эффекта Иммерсив, который умеют делать единицы. \n\n✅3 приёма для создания невероятной картинки. \n\n✅Как собрать их в формулу. \n\n✅Как с их помощью генерировать 1 000 000 вариантов решения одной и той же задачи. \n\n✅Как двигаться в творческих поиска, чтобы всегда получать крутой осознаннный результат.",
+      "en": "Moving on \n\nThe second lesson will show: \n\n✅How to achieve an Immersive effect that only a few can do. \n\n✅3 techniques to create an incredible picture. \n\n✅How to assemble them into a formula. \n\n✅How to use them to generate 1,000,000 solutions to the same problem. \n\n✅How to move in creative search to always get a cool conscious result."
+    },
+    "secondVideoLinkMsg": {
+      "ru": "Ссылка на второе видео",
+      "en": "Second video link"
+    },
+    "secondVideoOutroMsg": {
+      "ru": "Как обычно - тест. \n\nДавай убедимся, что мы на одной волне. \n\nА потом я расскажу, как при помощи формулы Продвинутого визуала менять свою ЖИЗНЬ.",
+      "en": "As usual - a test. \n\nLet's make sure we're on the same page. \n\nAnd then I'll tell you how to change your LIFE using the Advanced Visual formula."
+    },
+    "secondTestCompleteMsg": {
+      "ru": "Проверить результат теста и перейти к следующей части",
+      "en": "Check the test result and proceed to the next part"
+    },
+    "thirdVideoIntroMsg": {
+      "ru": "Супер! \n\nТретий, самый интересный урок - реальные кейсы! Что узнаешь: \n\n✅Как адаптировать знания иммерсивного визуала под каждый день своей жизни. \n\n✅Как делать абсолютную красоту из того, что находится под рукой. \n\n✅Какая главная идея позволяет получать результат в любых условиях. \n\n✅Как иммерсивные законы делают каждый проект top-notch качества.",
+      "en": "Amazing! \n\nThe third, most interesting lesson is real cases! What you will learn: \n\n✅How to adapt the knowledge of immersive visual for every day of your life. \n\n✅How to make absolute beauty from what is at hand. \n\n✅What is the main idea that allows you to get results in any conditions. \n\n✅How immersive laws make every project top-notch quality."
+    },
+    "thirdVideoLinkMsg": {
+      "ru": "Ссылка на второе видео",
+      "en": "Second video link"
+    },
+    "signUpForSessionMsg": {
+      "ru": "Вот мы и подобрались к самому интересному. Смотр твоих проектов и вопросов 1 на 1 со мной. \n\nЧтобы Записаться на эту сессию, ответь на 5 вопросов.",
+      "en": "So we got to the most interesting. Review of your projects and questions 1 on 1 with me. \n\nTo sign up for this session, answer 5 questions."
+    },
+    "userFullName": {
+      "ru": "Твои имя и фамилия",
+      "en": "Please enter your full name"
+    },
+    "userInstName": {
+      "ru": "Твой ник в Instagram",
+      "en": "Enter your Instagram nickname"
+    },
+    "whoAreYou": {
+      "ru": "Кто ты?",
+      "en": "Who are you?"
+    },
+    "userAim": {
+      "ru": "Какая у тебя цель?",
+      "en": "What is your goal?"
+    },
+    "userAimRealize": {
+      "ru": "Как планируешь реализовать цель?",
+      "en": "How do you plan to realize your goal?"
+    },
+    "userWeaknesses": {
+      "ru": "Что может помешать достигнуть цели? Какие слабые места?",
+      "en": "What can prevent you from achieving your goal, what are your weaknesses?"
+    },
+    "userClient": {
+      "ru": "Кто твой клиент?",
+      "en": "Tell us about your client"
+    },
+    "proFinalMsg": {
+      "ru": "📝📝📝\n\nСпасибо, ответы приняты, скоро я с тобой свяжусь. \n\nДо связи.",
+      "en": "📝📝📝\n\nThank you, the answers are accepted, I will contact you soon. \n\nGoodbye!"
+    },
+    "advancedToProUpgradeOfferMsg": {
+      "ru": "Итак, специальное предложение.\n\nПоскольку ты приобрёл версию мастеркласса ADVANCED, сейчас у тебя есть возможность апгрейднутьс до PRO и попасть на стратегическую сессию 1-на-1 со мной всего за 20$.\n\nОбсудим твои проекты, твою персональную стратегию роста и может быть, что-то ещё :)\n\nЭто предложение одного дня. Завтра оно сгорает. Так что думай и решай.\n\nЕсли интересно, вот тебе ссылка:\n*ССЫЛКА*\n\nПосле оплаты возвращайся сюда.",
+      "en": "So, here's a special offer.\n\nSince you have purchased the ADVANCED masterclass version, you now have the opportunity to upgrade to PRO and get a strategic one-on-one session with me for just $20.\n\nWe can discuss your projects, your personal growth strategy, and maybe something else :)\n\nThis offer is only available for one day. It expires tomorrow. So, take your time to think and make a decision.\n\nIf you're interested, here's the link:\n*LINK*\n\nAfter making the payment, come back here."
+    },
+    "upgradeToProSuccess": {
+      "ru": "Вижу оплату. Ты повышен до PRO, теперь давай делать смотр твоих проектов и вопросов 1 на 1 со мной.\n\nЧтобы записаться на сессию, ответь на 5 вопросов.",
+      "en": "I see the payment. You have been upgraded to PRO, and now let's proceed with a review of your projects and have a one-on-one session with me.\n\nTo schedule a session, please answer 5 questions."
+    },
+    "basicUpgradeOfferMsg": {
+      "ru": "Итак, специальное предложение.\n\nПоскольку ты приобрёл версию мастеркласса BASIC, я предлагаю тебе 2 апгрейда.\n\nДо advanced за 30$ - ты получишь +1 урок, с более углубленным материалом и разбором реальных коммерческих проектов.\n\nА апгрейд до PRO за 50$ даст тебе возможность не только получить +1 урок с разбором коммерческих проектов, но и стратегическую сессию, созвон 1-на-1 со мной.\n\nОбсудим твои проекты, твою персональную стратегию роста и может быть, что-то ещё :)\n\nЭто предложение одного дня Завтра оно сгорает Так что думай и решай. Если интересно, вот тебе ссылки для оплаты:\n\nADVANCED: *ССЫЛКА*\n\nPRO: *ССЫЛКА*\n\nПосле оплаты возвращайся сюда.",
+      "en": "So, here's a special offer.\n\nSince you purchased the BASIC version of the masterclass, I offer you 2 upgrades.\n\nFor $30, you can upgrade to ADVANCED and get an additional lesson with more in-depth material and analysis of real commercial projects.\n\nAnd for $50, the PRO upgrade will not only give you the extra lesson with commercial project analysis but also a strategic session, a 1-on-1 call with me.\n\nWe can discuss your projects, your personal growth strategy, and maybe something else :)\n\nThis offer is valid for one day. It expires tomorrow. So, think it over and make a decision. If you're interested, here are the payment links:\n\nADVANCED: LINK\n\nPRO: LINK\n\nAfter payment, come back here."
+    },
+    "basicToProVideoFourMsg": {
+      "ru": "Вижу оплату. Ты повышен до PRO\n\nЧетвертый, самый инсайдерский урок - реальные кейсы! Что узнаешь:\n\n✅Какая главная идея позволяет получать результат в любых условиях (коммерческий продукт).\n\n✅Как применять иммерсивные законы от кадра к кадру, чтобы это работало.\n\n✅Как иммерсивные законы делают каждый проект top-notch качества.",
+      "en": "I see your payment. You've been upgraded to PRO.\n\nThe fourth, most insider lesson - real-life cases! What you'll learn:\n\n✅The main idea that allows you to achieve results in any conditions (commercial product).\n\n✅How to apply immersive laws from frame to frame for it to work.\n\n✅How immersive laws make each project top-notch quality."
+    },
+    "basicToProVideoFourLinkMsg": {
+      "ru": "Ссылка на четвертое видео",
+      "en": "Video four link"
+    },
+    "basicToAdvancedVideoFourMsg": {
+      "ru": "Вижу оплату. Ты повышен до ADVANCED\n\nЧетвертый, самый инсайдерский урок - реальные кейсы! Что узнаешь:\n\n✅Какая главная идея позволяет получать результат в любых условиях (коммерческий продукт).\n\n✅Как применять иммерсивные законы от кадра к кадру, чтобы это работало.\n\n✅Как иммерсивные законы делают каждый проект top-notch качества.",
+      "en": "I see your payment. You've been upgraded to PRO.\n\nThe fourth, most insider lesson - real-life cases! What you'll learn:\n\n✅The main idea that allows you to achieve results in any conditions (commercial product).\n\n✅How to apply immersive laws from frame to frame for it to work.\n\n✅How immersive laws make each project top-notch quality."
+    },
+    "basicToAdvancedVideoFourLinkMsg": {
+      "ru": "Ссылка на чётвертое видео",
+      "en": "Video four link"
+    },
+    "basicToAdvancedFinalMsg": {
+      "ru": "Поздравляю с прохождением моего курса. Надеюсь это было для тебя легко и ты сможешь применить в будущем полученные знания. Удачи!",
+      "en": "Congratulations on completing my course. I hope it was easy for you and you'll be able to apply the knowledge gained in the future. Good luck!"
+    },
+    "firstTestSkipOfferMsg": {
+      "ru": "К сожалению вы не справились с тестом 3 раза. \nЯ рекомендую пробовать дальше, но на всякий случай скажу, что вы можете пропустить тест.",
+      "en": "Unfortunately, you failed the test three times. I recommend trying again, but just in case, I'll say that you can skip the test"
+    }
+}

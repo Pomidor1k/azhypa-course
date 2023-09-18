@@ -1,0 +1,82 @@
+{
+  "sessions": [
+    {
+      "id": "689818355:689818355",
+      "data": {
+        "userLanguage": "ru",
+        "fullName": "",
+        "instName": "",
+        "whoAreYou": "",
+        "userAim": "",
+        "realizeAim": "",
+        "userWeaknesses": "",
+        "userClient": "",
+        "rate": "none",
+        "upgradedToPro": true,
+        "basicToProUpgrade": true,
+        "canSendMessage": false,
+        "userName": "assbusterr"
+      }
+    },
+    {
+      "id": "1454838832:1454838832",
+      "data": {
+        "rate": "basic",
+        "userLanguage": "ru",
+        "basicToProUpgrade": true,
+        "fullName": "Я",
+        "instName": "Я",
+        "whoAreYou": "Я",
+        "userAim": "Я",
+        "realizeAim": "Я",
+        "userWeaknesses": "Я",
+        "userClient": "Я"
+      }
+    },
+    {
+      "id": "631640125:631640125",
+      "data": {
+        "rate": "none",
+        "userLanguage": "ru"
+      }
+    },
+    {
+      "id": "783529737:783529737",
+      "data": {
+        "rate": "none",
+        "userLanguage": "en",
+        "fullName": ". .",
+        "instName": ".",
+        "whoAreYou": ".",
+        "userAim": ",",
+        "realizeAim": ",,, ,, ,/\\",
+        "userWeaknesses": "\"\"",
+        "userClient": "Х'",
+        "upgradedToPro": true
+      }
+    },
+    {
+      "id": "514751965:514751965",
+      "data": {
+        "rate": "none",
+        "userLanguage": "ru",
+        "canSendMessage": false,
+        "fullName": "",
+        "instName": "",
+        "whoAreYou": "",
+        "userAim": "",
+        "realizeAim": "",
+        "userWeaknesses": "",
+        "userClient": "",
+        "basicToProUpgrade": true
+      }
+    },
+    {
+      "id": "798944415:798944415",
+      "data": {
+        "rate": "none",
+        "userLanguage": "ru"
+      }
+    }
+  ]
+}
