@@ -51,10 +51,10 @@ const watchedFirstVideoKeyboard = {
 
 const startFirstTestKeyboard = {
     "ru": Markup.inlineKeyboard([
-        [Markup.button.webApp('Проверить знания📚', `https://f269-37-214-61-69.ngrok-free.app/test_one`)]
+        [Markup.button.webApp('Проверить знания📚', `https://azhypa-web-apps.onrender.com/test_one`)]
       ]),
     "en": Markup.inlineKeyboard([
-        [Markup.button.webApp('Check knowledge📚', `https://f269-37-214-61-69.ngrok-free.app/test_one`)]
+        [Markup.button.webApp('Check knowledge📚', `https://azhypa-web-apps.onrender.com/test_one`)]
       ])
 }
 
@@ -98,10 +98,10 @@ const watchedSecondVideoKeyboard = {
 
 const startSecondTestKeyboard = {
   "ru": Markup.inlineKeyboard([
-      [Markup.button.webApp('Проверить знания📚', `https://f269-37-214-61-69.ngrok-free.app/test_two`)]
+      [Markup.button.webApp('Проверить знания📚', `https://azhypa-web-apps.onrender.com/test_two`)]
     ]),
   "en": Markup.inlineKeyboard([
-      [Markup.button.webApp('Check knowledge📚', `https://f269-37-214-61-69.ngrok-free.app/test_two`)]
+      [Markup.button.webApp('Check knowledge📚', `https://azhypa-web-apps.onrender.com/test_two`)]
     ])
 }
 
