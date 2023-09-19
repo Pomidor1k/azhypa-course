@@ -364,7 +364,16 @@ async function watchUserSecondTestCount(userId, callback) {
 }
 
 
+async function deleteMe(userId) {
+  // Получить доступ к коллекции users.
+  const usersCollection = db.collection("users");
 
+  // Создать документ с именем userId.
+  const userDoc = usersCollection.doc(userId);
+
+  // Удалить документ.
+  await userDoc.delete();
+}
 
 
 
@@ -388,5 +397,6 @@ module.exports = {
     addLinksEmpty,
     addBasicUpgradeLinks,
     getLinkFourBtoA,
-    getLinkFourBtoP
+    getLinkFourBtoP,
+    deleteMe
 }
