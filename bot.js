@@ -37,6 +37,24 @@ bot.command('delete', async (ctx) => {
 })
 
 
+const getInvoice = (id, rate, userLanguage) => {
+    const title = userLanguage === 'en' ? `${rate} subscription` : `Подписка ${rate}`
+    const amount = rate === 'pro' ? 100 * 89 : (rate === 'advanced' ? 100 * 68 : 100 * 39);
+    const invoice = {
+      chat_id: id, // Уникальный идентификатор целевого чата или имя пользователя целевого канала
+      provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
+      start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
+      title: title, // Название продукта, 1-32 символа
+      description: 'Описание подписки', // Описание продукта, 1-255 знаков
+      currency: 'USD', // Трехбуквенный код валюты ISO 4217
+      prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
+      payload: 'firstPayment'
+    }
+  
+    return invoice
+  }
+
+
 bot.start(async (ctx) => {
     const parameter = ctx.message.text.split(' ')[1];
     const userId = ctx.from.id;
@@ -71,6 +89,9 @@ bot.start(async (ctx) => {
         }, 86500000);
     }
 });
+
+
+
 
 bot.on('text', (ctx, next) => {
     if (!ctx.session.canSendMessage) {
@@ -108,7 +129,7 @@ bot.action("russian_language_button", async (ctx) => {
         await ctx.deleteMessage()
         const userRate = await dataBase.getRate(`${userId}`)
         if (userRate !== 'none') {
-            await ctx.replyWithHTML(messages.welcomeToCourseMsg.ru, keyboards.checkPaymentKeyboard_ru)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         } else {
             await ctx.replyWithHTML(messages.chooseRateMsg.ru, keyboards.chooseRateKeyboard)
         }
@@ -120,7 +141,7 @@ bot.action("russian_language_button", async (ctx) => {
         }, 86500000)
         const userRate = await dataBase.getRate(`${userId}`)
         if (userRate !== 'none') {
-            await ctx.replyWithHTML(messages.welcomeToCourseMsg.ru, keyboards.checkPaymentKeyboard_ru)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         } else {
             await ctx.replyWithHTML(messages.chooseRateMsg.ru, keyboards.chooseRateKeyboard)
         }
@@ -136,7 +157,7 @@ bot.action("english_language_button", async (ctx) => {
         await ctx.deleteMessage()
         const userRate = await dataBase.getRate(`${userId}`)
         if (userRate !== 'none') {
-            await ctx.replyWithHTML(messages.welcomeToCourseMsg.en, keyboards.checkPaymentKeyboard_en)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         } else {
             await ctx.replyWithHTML(messages.chooseRateMsg.en, keyboards.chooseRateKeyboard)
         }
@@ -148,7 +169,7 @@ bot.action("english_language_button", async (ctx) => {
         }, 86500000)
         const userRate = await dataBase.getRate(`${userId}`)
         if (userRate !== 'none') {
-            await ctx.replyWithHTML(messages.welcomeToCourseMsg.en, keyboards.checkPaymentKeyboard_en)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         } else {
             await ctx.replyWithHTML(messages.chooseRateMsg.en, keyboards.chooseRateKeyboard)
         }
@@ -157,13 +178,14 @@ bot.action("english_language_button", async (ctx) => {
 /*Language Handlers*/
 
 bot.action("payment_pro_rate_button", async (ctx) => {
+    ctx.session.rate = 'pro'
     const userId = ctx.from.id
     try {
-        await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.chooseProMsg.ru : messages.chooseProMsg.en, ctx.session.userLanguage === "ru" ? keyboards.checkPaymentKeyboard_ru : keyboards.checkPaymentKeyboard_en)
+        await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         await dataBase.addParameter(`${userId}`, "rate", "pro")
     } catch (error) {
         setTimeout(async () => {
-            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.chooseProMsg.ru : messages.chooseProMsg.en, ctx.session.userLanguage === "ru" ? keyboards.checkPaymentKeyboard_ru : keyboards.checkPaymentKeyboard_en)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         }, 5000);
         setTimeout(async () => {
             await dataBase.addParameter(`${userId}`, "rate", "pro")
@@ -172,26 +194,33 @@ bot.action("payment_pro_rate_button", async (ctx) => {
 })
 bot.action("payment_advanced_rate_button", async (ctx) => {
     const userId = ctx.from.id
+    ctx.session.rate = 'advanced'
     try {
-        await ctx.reply(ctx.session.userLanguage === "ru" ? messages.chooseAdvancedMsg.ru : messages.chooseAdvancedMsg.en, ctx.session.userLanguage === "ru" ? keyboards.checkPaymentKeyboard_ru : keyboards.checkPaymentKeyboard_en)
+        await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         await dataBase.addParameter(`${userId}`, "rate", "advanced")
     } catch (error) {
         setTimeout(async () => {
-            await ctx.reply(ctx.session.userLanguage === "ru" ? messages.chooseAdvancedMsg.ru : messages.chooseAdvancedMsg.en, ctx.session.userLanguage === "ru" ? keyboards.checkPaymentKeyboard_ru : keyboards.checkPaymentKeyboard_en)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         }, 5000);
         setTimeout(async () => {
             await dataBase.addParameter(`${userId}`, "rate", "advanced")
         }, 86500000);
     }
 })
+
+
+
+
+
 bot.action("payment_basic_rate_button", async (ctx) => {
     const userId = ctx.from.id
+    ctx.session.rate = 'basic'
     try {
-        await ctx.reply(ctx.session.userLanguage === "ru" ? messages.chooseBasicMsg.ru : messages.chooseBasicMsg.en, ctx.session.userLanguage === "ru" ? keyboards.checkPaymentKeyboard_ru : keyboards.checkPaymentKeyboard_en)
+        await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         await dataBase.addParameter(`${userId}`, "rate", "basic")
     } catch (error) {
         setTimeout(async () => {
-            await ctx.reply(ctx.session.userLanguage === "ru" ? messages.chooseBasicMsg.ru : messages.chooseBasicMsg.en, ctx.session.userLanguage === "ru" ? keyboards.checkPaymentKeyboard_ru : keyboards.checkPaymentKeyboard_en)
+            await ctx.replyWithInvoice(getInvoice(ctx.from.id, ctx.session.rate, ctx.session.userLanguage))
         }, 5000);
         setTimeout(async () => {
             await dataBase.addParameter(`${userId}`, "rate", "basic")
@@ -199,19 +228,40 @@ bot.action("payment_basic_rate_button", async (ctx) => {
     }
 })
 
+bot.on('pre_checkout_query', (ctx) => ctx.answerPreCheckoutQuery(true))
 
+bot.on('successful_payment', async (ctx, next) => { // ответ в случае положительной оплаты
+    const paymentInfo = ctx.update.message.successful_payment;
 
-bot.action("payment_check_button", async (ctx) => {
-    const userId = ctx.from.id
-    const paymentSuccess = true
-    if (paymentSuccess) {
-        ctx.replyWithPhoto({
-            source: './payment_success_img.jpg'
-        }, keyboards.paymentSuccessKeyboard[ctx.session.userLanguage])
-    } else {
-        //----------------------------------
+    switch (paymentInfo.invoice_payload) { // используем payload для определения типа оплаты
+        case 'firstPayment':
+            await ctx.replyWithPhoto({
+                source: './payment_success_img.jpg'
+            }, keyboards.paymentSuccessKeyboard[ctx.session.userLanguage])
+            break;
+        case 'upgradeAdvToPro':
+            ctx.session.upgradedToPro = true
+            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.upgradeToProSuccess.ru : messages.upgradeToProSuccess.en, keyboards.startSignUpForSessionKeyboard[ctx.session.userLanguage])
+            await dataBase.addParameter(`${ctx.from.id}`, "upgradedToPro", true)
+            // Ваша логика по обработке расширения подписки
+            break;
+        case 'upgradeBasToAdv':
+            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToAdvancedVideoFourMsg.ru : messages.basicToAdvancedVideoFourMsg.en, keyboards.basicToAdvancedVideoFourKeyboard[ctx.session.userLanguage])
+                // Ваша логика по обработке расширения подписки
+            break;
+        case 'upgradeBasToPro':
+            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToProVideoFourMsg.ru : messages.basicToProVideoFourMsg.en, keyboards.basicToProVideoFourKeyboard[ctx.session.userLanguage])
+            await dataBase.addParameter(`${ctx.from.id}`, "basicToProUpgrade", true)
+                // Ваша логика по обработке расширения подписки
+            break;
+
+        default:
+            ctx.reply('Спасибо за покупку!');
+            break;
     }
 })
+
+
 
 bot.action("payment_success_button", async (ctx) => {
     const userId = ctx.from.id
@@ -455,31 +505,82 @@ bot.action("upgrade_to_pro_button", async (ctx) => {
     ctx.session.realizeAim = ""
     ctx.session.userWeaknesses = ""
     ctx.session.userClient = ""
+
+    const getAtoPInvoice = (id, userLanguage) => {
+        const title = userLanguage === 'en' ? `ADVANCED to PRO upgrade` : `Апгрейд с ADVANCED до PRO`
+        const amount = 2100;
+        const invoice = {
+          chat_id: id, // Уникальный идентификатор целевого чата или имя пользователя целевого канала
+          provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
+          start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
+          title: title, // Название продукта, 1-32 символа
+          description: 'Описание подписки', // Описание продукта, 1-255 знаков
+          currency: 'USD', // Трехбуквенный код валюты ISO 4217
+          prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
+          payload: 'upgradeAdvToPro'
+        }
+      
+        return invoice
+      }
+
     try {
-        ctx.session.upgradedToPro = true
-        await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.upgradeToProSuccess.ru : messages.upgradeToProSuccess.en, keyboards.startSignUpForSessionKeyboard[ctx.session.userLanguage])
-        await dataBase.addParameter(`${userId}`, "upgradedToPro", true)
+        await ctx.replyWithInvoice(getAtoPInvoice(ctx.from.id, ctx.session.userLanguage))
     } catch (error) {
         console.error(error);
         ctx.session.upgradedToPro = true
         setTimeout(async () => {
-            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.upgradeToProSuccess.ru : messages.upgradeToProSuccess.en, keyboards.startSignUpForSessionKeyboard[ctx.session.userLanguage])
+            // await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.upgradeToProSuccess.ru : messages.upgradeToProSuccess.en, keyboards.startSignUpForSessionKeyboard[ctx.session.userLanguage])
+            await ctx.replyWithInvoice(getAtoPInvoice(ctx.from.id, ctx.session.userLanguage))
         }, 5000);
         setTimeout(async () => {
-            await dataBase.addParameter(`${userId}`, "upgradedToPro", true)
+            // await dataBase.addParameter(`${userId}`, "upgradedToPro", true)
         }, 86500000);
     }
 })
+
+const getBtoPInvoice = (id, userLanguage) => {
+    const title = userLanguage === 'en' ? `BASIC to PRO upgrade` : `Апгрейд с BASIC до PRO`
+    const amount = 5000;
+    const invoice = {
+      chat_id: id, // Уникальный идентификатор целевого чата или имя пользователя целевого канала
+      provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
+      start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
+      title: title, // Название продукта, 1-32 символа
+      description: 'Описание подписки', // Описание продукта, 1-255 знаков
+      currency: 'USD', // Трехбуквенный код валюты ISO 4217
+      prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
+      payload: 'upgradeBasToPro'
+    }
+  
+    return invoice
+  }
+
+  const getBtoAInvoice = (id, userLanguage) => {
+    const title = userLanguage === 'en' ? `BASIC to ADVANCED upgrade` : `Апгрейд с BASIC до ADVANCED`
+    const amount = 2900;
+    const invoice = {
+      chat_id: id, // Уникальный идентификатор целевого чата или имя пользователя целевого канала
+      provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
+      start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
+      title: title, // Название продукта, 1-32 символа
+      description: 'Описание подписки', // Описание продукта, 1-255 знаков
+      currency: 'USD', // Трехбуквенный код валюты ISO 4217
+      prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
+      payload: 'upgradeBasToAdv'
+    }
+  
+    return invoice
+  }
 
 bot.action("basic_to_pro_upgrade_button", async (ctx) => {
     const userId = ctx.from.id
     ctx.session.basicToProUpgrade = true
     try {
-        await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToProVideoFourMsg.ru : messages.basicToProVideoFourMsg.en, keyboards.basicToProVideoFourKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithInvoice(getBtoPInvoice(ctx.from.id, ctx.session.userLanguage))
         await dataBase.addParameter(`${userId}`, "basicToProUpgrade", true)
     } catch (error) {
         setTimeout(async () => {
-            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToProVideoFourMsg.ru : messages.basicToProVideoFourMsg.en, keyboards.basicToProVideoFourKeyboard[ctx.session.userLanguage])
+            await ctx.replyWithInvoice(getBtoPInvoice(ctx.from.id, ctx.session.userLanguage))
         }, 5000);
         setTimeout(async () => {
             await dataBase.addParameter(`${userId}`, "basicToProUpgrade", true)
@@ -542,10 +643,10 @@ bot.action("basic_to_pro_sign_up_session_button", async (ctx) => {
 
 bot.action("basic_to_advanced_upgrade_button", async (ctx) => {
     try {
-        await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToAdvancedVideoFourMsg.ru : messages.basicToAdvancedVideoFourMsg.en, keyboards.basicToAdvancedVideoFourKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithInvoice(getBtoAInvoice(ctx.from.id, ctx.session.userLanguage))
     } catch (error) {
         setTimeout(async () => {
-            await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToAdvancedVideoFourMsg.ru : messages.basicToAdvancedVideoFourMsg.en, keyboards.basicToAdvancedVideoFourKeyboard[ctx.session.userLanguage])
+            await ctx.replyWithInvoice(getBtoAInvoice(ctx.from.id, ctx.session.userLanguage))
         }, 5000);
     }
 })

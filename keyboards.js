@@ -8,10 +8,10 @@ const chooseLanguageKeyboard = Markup.inlineKeyboard([
 ]);
 
 const checkPaymentKeyboard_ru = Markup.inlineKeyboard([
-    [Markup.button.callback('Проверить оплату💵', 'payment_check_button')]
+    [Markup.button.callback('Оплатить💵', 'payment_check_button')]
   ]);
   const checkPaymentKeyboard_en = Markup.inlineKeyboard([
-    [Markup.button.callback('Check payment💵', 'payment_check_button')]
+    [Markup.button.callback('Pay💵', 'payment_check_button')]
   ]);
 
 
@@ -165,21 +165,21 @@ const checkAnswersKeyboard = {
 
 const advancedToProUpgradeOfferKeyboard = {
   "ru": Markup.inlineKeyboard([
-    [Markup.button.callback('Оплатил💵', 'upgrade_to_pro_button')]
+    [Markup.button.callback('Оплатить💵', 'upgrade_to_pro_button')]
     ]),
   "en": Markup.inlineKeyboard([
-    [Markup.button.callback('Check payment💵', 'upgrade_to_pro_button')]
+    [Markup.button.callback('Pay💵', 'upgrade_to_pro_button')]
     ])
 }
 
 const basicUpgradeOfferKeyboard = {
   "ru": Markup.inlineKeyboard([
-    [Markup.button.callback('Проверить оплату PRO💵', 'basic_to_pro_upgrade_button')],
-    [Markup.button.callback('Проверить оплату ADVANCED💵', 'basic_to_advanced_upgrade_button')]
+    [Markup.button.callback('Апгрейд до PRO💵', 'basic_to_pro_upgrade_button')],
+    [Markup.button.callback('Апгрейд до ADVANCED💵', 'basic_to_advanced_upgrade_button')]
     ]),
   "en": Markup.inlineKeyboard([
-    [Markup.button.callback('Check PRO payment💵', 'basic_to_pro_upgrade_button')],
-    [Markup.button.callback('Check ADVANCED payment💵', 'basic_to_advanced_upgrade_button')]
+    [Markup.button.callback('Upgrade to PRO💵', 'basic_to_pro_upgrade_button')],
+    [Markup.button.callback('Upgrade to ADVANCED💵', 'basic_to_advanced_upgrade_button')]
     ])
 }
 
