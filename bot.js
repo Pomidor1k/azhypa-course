@@ -40,25 +40,34 @@ bot.command('delete', async (ctx) => {
 const getInvoice = (id, rate, userLanguage) => {
     const title = userLanguage === 'en' ? `${rate} subscription` : `Подписка ${rate}`
     const amount = rate === 'pro' ? 100 * 89 : (rate === 'advanced' ? 100 * 68 : 100 * 39);
-    const description = rate === 'pro' ? 
-    `В подписку уровня PRO входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nСессия 1 на 1 со мной, где мы разберем твои проекты` : 
-    rate === 'advanced' ? 
-    `В подписку уровня ADVANCED входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nВы сможете повысить уровень подписки после прохождения курса` : 
-    rate === 'basic' ? 
-    `В подписку уровня BASIC входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nВы сможете повысить уровень подписки после прохождения курса` : 
-    'Неизвестный уровень подписки';
+    const descriptions = {
+        pro: {
+            en: `The PRO subscription includes 3 exclusive video lessons\n2 tests on the covered material\nFormula\n1 on 1 session with me to review your projects`,
+            ru: `В подписку уровня PRO входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nСессия 1 на 1 со мной, где мы разберем твои проекты`
+        },
+        advanced: {
+            en: `The ADVANCED subscription includes 3 exclusive video lessons\n2 tests on the covered material\nFormula\nYou can upgrade the subscription level after completing the course`,
+            ru: `В подписку уровня ADVANCED входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nВы сможете повысить уровень подписки после прохождения курса`
+        },
+        basic: {
+            en: `The BASIC subscription includes 3 exclusive video lessons\n2 tests on the covered material\nFormula\nYou can upgrade the subscription level after completing the course`,
+            ru: `В подписку уровня BASIC входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nВы сможете повысить уровень подписки после прохождения курса`
+        }
+    };
+    
+    const description = descriptions[rate] ? descriptions[rate][userLanguage] : 'Unknown subscription level';
 
 
     const invoice = {
       chat_id: id, // Уникальный идентификатор целевого чата или имя пользователя целевого канала
       provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
+      photo_url: 'https://www.dropbox.com/scl/fi/baf06m6zcsdboo3qjp6fi/pic.jpg?rlkey=gx5x15xipd3k747spq2hs7qrl&dl=0',
       start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
       title: title, // Название продукта, 1-32 символа
       description: description, // Описание продукта, 1-255 знаков
       currency: 'USD', // Трехбуквенный код валюты ISO 4217
       prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
-      payload: 'firstPayment'
-    }
+      payload: 'firstPayment',    }
   
     return invoice
   }
@@ -525,10 +534,11 @@ bot.action("upgrade_to_pro_button", async (ctx) => {
           provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
           start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
           title: title, // Название продукта, 1-32 символа
-          description: 'При апгрейде ты получишь доступ к сессии 1 на 1 со мной, где мы рассмотрим твои проекты и сделаем работу над ошибками.', // Описание продукта, 1-255 знаков
+          description: userLanguage === 'ru' ? 'При апгрейде ты получишь доступ к сессии 1 на 1 со мной, где мы рассмотрим твои проекты и сделаем работу над ошибками.' : "When you upgrade, you'll gain access to a one-on-one session with me where we'll review your projects and work on any mistakes", // Описание продукта, 1-255 знаков
           currency: 'USD', // Трехбуквенный код валюты ISO 4217
           prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
-          payload: 'upgradeAdvToPro'
+          payload: 'upgradeAdvToPro',
+          photo_url: 'pic.jpg'
         }
       
         return invoice
@@ -557,10 +567,11 @@ const getBtoPInvoice = (id, userLanguage) => {
       provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
       start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
       title: title, // Название продукта, 1-32 символа
-      description: 'При апгрейде ты получишь доступ к ещё одному эксклюзивному уроку\nМы проведем сессию 1 на 1 и сможет вместе разобрать твои проекты', // Описание продукта, 1-255 знаков
+      description: userLanguage === 'ru' ? 'При апгрейде ты получишь доступ к ещё одному эксклюзивному уроку\nМы проведем сессию 1 на 1 и сможет вместе разобрать твои проекты' : "When you upgrade, you'll gain access to another exclusive lesson. We'll have a one-on-one session, and together we'll review your projects", // Описание продукта, 1-255 знаков
       currency: 'USD', // Трехбуквенный код валюты ISO 4217
       prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
-      payload: 'upgradeBasToPro'
+      payload: 'upgradeBasToPro',
+      photo_url: 'pic.jpg'
     }
   
     return invoice
@@ -574,10 +585,11 @@ const getBtoPInvoice = (id, userLanguage) => {
       provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
       start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
       title: title, // Название продукта, 1-32 символа
-      description: 'При апгрейде ты получишь доступ к ещё одному эксклюзивному уроку', // Описание продукта, 1-255 знаков
+      description: userLanguage === 'ru' ? 'При апгрейде ты получишь доступ к ещё одному эксклюзивному уроку' : "When you upgrade, you'll gain access to another exclusive lesson", // Описание продукта, 1-255 знаков
       currency: 'USD', // Трехбуквенный код валюты ISO 4217
       prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
-      payload: 'upgradeBasToAdv'
+      payload: 'upgradeBasToAdv',
+      photo_url: 'pic.jpg'
     }
   
     return invoice
