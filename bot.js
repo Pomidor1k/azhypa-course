@@ -40,12 +40,21 @@ bot.command('delete', async (ctx) => {
 const getInvoice = (id, rate, userLanguage) => {
     const title = userLanguage === 'en' ? `${rate} subscription` : `Подписка ${rate}`
     const amount = rate === 'pro' ? 100 * 89 : (rate === 'advanced' ? 100 * 68 : 100 * 39);
+    const description = rate === 'pro' ? 
+    `В подписку уровня PRO входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nСессия 1 на 1 со мной, где мы разберем твои проекты` : 
+    rate === 'advanced' ? 
+    `В подписку уровня ADVANCED входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nВы сможете повысить уровень подписки после прохождения курса` : 
+    rate === 'basic' ? 
+    `В подписку уровня BASIC входит 3 эксклюзивных видеоурока\n2 теста по пройденному материалу\nФормула\nВы сможете повысить уровень подписки после прохождения курса` : 
+    'Неизвестный уровень подписки';
+
+
     const invoice = {
       chat_id: id, // Уникальный идентификатор целевого чата или имя пользователя целевого канала
       provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
       start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
       title: title, // Название продукта, 1-32 символа
-      description: 'Описание подписки', // Описание продукта, 1-255 знаков
+      description: description, // Описание продукта, 1-255 знаков
       currency: 'USD', // Трехбуквенный код валюты ISO 4217
       prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
       payload: 'firstPayment'
@@ -67,8 +76,13 @@ bot.start(async (ctx) => {
     };
 
     const userRate = userRates[parameter] || 'none';
-
+    const serverDomain = 'https://azhypa-web-apps.onrender.com'
     try {
+        ctx.session.video1Link = `${serverDomain}/video1/${userId}`
+        ctx.session.video2Link = `${serverDomain}/video2/${userId}`
+        ctx.session.video3Link = `${serverDomain}/video3/${userId}`
+        ctx.session.video4BtoALink = `${serverDomain}/video4BA/${userId}`
+        ctx.session.video4BtoPLink = `${serverDomain}/video4BP/${userId}`
         await ctx.replyWithHTML("Выберите язык\n------------------------\nChoose language", keyboards.chooseLanguageKeyboard);
     } catch (error) {
         console.error(error);
@@ -286,8 +300,7 @@ bot.action("payment_success_button", async (ctx) => {
 bot.action("watch_lessons_one_button", async (ctx) => {
     const userId = ctx.from.id
     try {
-        const firstVideoLink = await dataBase.getFirstLink(`${userId}`)
-        await ctx.replyWithHTML(firstVideoLink, keyboards.watchedFirstVideoKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithHTML(ctx.session.video1Link ? ctx.session.video1Link : `https://azhypa-web-apps.onrender.com/video1/${userId}`, keyboards.watchedFirstVideoKeyboard[ctx.session.userLanguage])
     } catch (error) {
         console.error(error);
         setTimeout(async () => {
@@ -325,8 +338,7 @@ bot.action("first_video_finished_button", async (ctx) => {
 bot.action("watch_lesson_two_button", async (ctx) => {
     const userId = ctx.from.id
     try {
-        const secondVideoLink = await dataBase.getSecondLink(`${userId}`)
-        await ctx.replyWithHTML(secondVideoLink, keyboards.watchedSecondVideoKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithHTML(ctx.session.video2Link ? ctx.session.video2Link : `https://azhypa-web-apps.onrender.com/video2/${userId}`, keyboards.watchedSecondVideoKeyboard[ctx.session.userLanguage])
     } catch (error) {
         console.error(error);
         setTimeout(async () => {
@@ -378,8 +390,7 @@ bot.action("second_test_skip_button", async (ctx) => {
 bot.action("watch_lesson_three_button", async (ctx) => {
     const userId = ctx.from.id
     try {
-        const thirdVideoLink = await dataBase.getThirdLink(`${userId}`)
-        await ctx.replyWithHTML(thirdVideoLink, keyboards.getMaterialsKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithHTML(ctx.session.video3Link ? ctx.session.video3Link : `https://azhypa-web-apps.onrender.com/video3/${userId}`, keyboards.getMaterialsKeyboard[ctx.session.userLanguage])
     } catch (error) {
         console.error(error);
         setTimeout(async () => {
@@ -514,7 +525,7 @@ bot.action("upgrade_to_pro_button", async (ctx) => {
           provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
           start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
           title: title, // Название продукта, 1-32 символа
-          description: 'Описание подписки', // Описание продукта, 1-255 знаков
+          description: 'При апгрейде ты получишь доступ к сессии 1 на 1 со мной, где мы рассмотрим твои проекты и сделаем работу над ошибками.', // Описание продукта, 1-255 знаков
           currency: 'USD', // Трехбуквенный код валюты ISO 4217
           prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
           payload: 'upgradeAdvToPro'
@@ -546,7 +557,7 @@ const getBtoPInvoice = (id, userLanguage) => {
       provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
       start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
       title: title, // Название продукта, 1-32 символа
-      description: 'Описание подписки', // Описание продукта, 1-255 знаков
+      description: 'При апгрейде ты получишь доступ к ещё одному эксклюзивному уроку\nМы проведем сессию 1 на 1 и сможет вместе разобрать твои проекты', // Описание продукта, 1-255 знаков
       currency: 'USD', // Трехбуквенный код валюты ISO 4217
       prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
       payload: 'upgradeBasToPro'
@@ -563,7 +574,7 @@ const getBtoPInvoice = (id, userLanguage) => {
       provider_token: '410694247:TEST:aebd8bbd-6444-46bf-ac9c-f27737ac76fc', // токен выданный через бот @SberbankPaymentBot 
       start_parameter: 'get_access', //Уникальный параметр глубинных ссылок. Если оставить поле пустым, переадресованные копии отправленного сообщения будут иметь кнопку «Оплатить», позволяющую нескольким пользователям производить оплату непосредственно из пересылаемого сообщения, используя один и тот же счет. Если не пусто, перенаправленные копии отправленного сообщения будут иметь кнопку URL с глубокой ссылкой на бота (вместо кнопки оплаты) со значением, используемым в качестве начального параметра.
       title: title, // Название продукта, 1-32 символа
-      description: 'Описание подписки', // Описание продукта, 1-255 знаков
+      description: 'При апгрейде ты получишь доступ к ещё одному эксклюзивному уроку', // Описание продукта, 1-255 знаков
       currency: 'USD', // Трехбуквенный код валюты ISO 4217
       prices: [{ label: title, amount: amount }], // Разбивка цен, сериализованный список компонентов в формате JSON 100 копеек * 100 = 100 рублей
       payload: 'upgradeBasToAdv'
@@ -591,8 +602,7 @@ bot.action("basic_to_pro_upgrade_button", async (ctx) => {
 bot.action("basic_to_pro_video_four_button", async (ctx) => {
     const userId = ctx.from.id
     try {
-        const videoFourBtoPLink = await dataBase.getLinkFourBtoP(`${userId}`)
-        await ctx.replyWithHTML(videoFourBtoPLink, keyboards.basicToProGetFormulaKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithHTML(ctx.session.video4BtoPLink ? ctx.session.video4BtoPLink : `https://azhypa-web-apps.onrender.com/video4BP/${userId}`, keyboards.basicToProGetFormulaKeyboard[ctx.session.userLanguage])
     } catch (error) {
         console.error(error);
         setTimeout(async () => {
@@ -654,8 +664,7 @@ bot.action("basic_to_advanced_upgrade_button", async (ctx) => {
 bot.action("basic_to_advanced_video_four_button", async (ctx) => {
     const userId = ctx.from.id
     try {
-        const videoFourBtoALink = await dataBase.getLinkFourBtoA(`${userId}`)
-        await ctx.replyWithHTML(videoFourBtoALink, keyboards.basicToAdvancedGetFormulaKeyboard[ctx.session.userLanguage])
+        await ctx.replyWithHTML(ctx.session.video4BtoALink ? ctx.session.video4BtoALink : `https://azhypa-web-apps.onrender.com/video4BA/${userId}`, keyboards.basicToAdvancedGetFormulaKeyboard[ctx.session.userLanguage])
     } catch (error) {
         setTimeout(async () => {
             await ctx.replyWithHTML(ctx.session.userLanguage === "ru" ? messages.basicToAdvancedVideoFourLinkMsg.ru : messages.basicToAdvancedVideoFourLinkMsg.en, keyboards.basicToAdvancedGetFormulaKeyboard[ctx.session.userLanguage])
