@@ -27,14 +27,6 @@ function getCurrentDateTime() {
     return `${DD}:${MM}:${YY} ${HH}:${minutes}`;
 }
 /*Functions*/
-bot.command('delete', async (ctx) => {
-    const userId = ctx.from.id
-    try {
-        await dataBase.deleteMe(`${userId}`)
-    } catch (error) {
-        
-    }
-})
 
 
 const getInvoice = (id, rate, userLanguage) => {

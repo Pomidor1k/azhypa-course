@@ -330,7 +330,6 @@ async function watchSecondTestPassed(userId, callback) {
     const userData = snapshot.data();
 
     if (userData && userData.secondTestPassed === true) {
-      console.log("Callback from watchSecondTestPassed is about to be called");
       callback();
       // Используем функцию отписки, когда условие выполняется
       unsubscribe();
@@ -364,17 +363,6 @@ async function watchUserSecondTestCount(userId, callback) {
 }
 
 
-async function deleteMe(userId) {
-  // Получить доступ к коллекции users.
-  const usersCollection = db.collection("users");
-
-  // Создать документ с именем userId.
-  const userDoc = usersCollection.doc(userId);
-
-  // Удалить документ.
-  await userDoc.delete();
-}
-
 
 
 module.exports = {
@@ -397,6 +385,5 @@ module.exports = {
     addLinksEmpty,
     addBasicUpgradeLinks,
     getLinkFourBtoA,
-    getLinkFourBtoP,
-    deleteMe
+    getLinkFourBtoP
 }
