@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rates</title>
+    <link rel="stylesheet" href="/choose-rate/offers_styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="/choose-rate/choose_rate_script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <svg width="280" height="55" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF00A8" />
+            <stop offset="50%" stop-color="#DC00FF" />
+            <stop offset="100%" stop-color="#7000FF" />
+          </linearGradient>
+          <filter id="blur" x="-2" y="-2" height="100" width="100">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="35" />
+          </filter>
+        </defs>
+        <style>
+          .text {
+            font: 48px Dela Gothic One, sans-serif;
+            fill-opacity: 0;
+            font-weight: bold;
+            stroke-width: 2;
+            stroke: url(#linear);
+            dominant-baseline: middle;
+            text-anchor: middle;
+            text-transform: uppercase;
+          }
+        </style>
+        <!-- <rect x="5%" y="40%" width="100%" height="20%" fill="url(#linear)" filter="url(#blur)" /> -->
+        <text x="50%" y="50%" class="text">Тарифы</text>
+      </svg>
+
+      <div class="rate__wrapper" id="basic">
+        <div class="rate">
+          <div class="rate__lighter">
+            <div class="rate__header">
+              <h1>Basic</h1>
+              <p>58 мин</p>
+            </div>
+          </div>
+          <div class="rate__content">
+            <p>Доступ к материалам и формуле <span>дорогого визуала</span></p>
+            <p class="rate__blocked-option">Разборы визуала проектов с бюджетом <span>$15-25k.</span></p>
+            <p class="rate__blocked-option">Индивидуальный разбор проектов + <span>план роста</span></p>
+            <div class="rate__lighter_2">
+              <p class="rate__price">$39</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rate__wrapper" id="advanced">
+        <div class="rate rate_2">
+          <div class="rate__lighter">
+            <div class="rate__header">
+              <h1>Advanced</h1>
+              <p>73 мин</p>
+            </div>
+          </div>
+          <div class="rate__content">
+            <p>Доступ к материалам и формуле <span>дорогого визуала</span></p>
+            <p>Разборы визуала проектов с бюджетом <span>$15-25k.</span></p>
+            <p class="rate__blocked-option">Индивидуальный разбор проектов + <span>план роста</span></p>
+            <div class="rate__lighter_2">
+              <p class="rate__price">$69</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rate__wrapper" id="pro">
+        <div class="rate rate_3">
+          <div class="rate__lighter">
+            <div class="rate__header">
+              <h1>Pro</h1>
+              <p>117 мин</p>
+            </div>
+          </div>
+          <div class="rate__content">
+            <p>Доступ к материалам и формуле <span>дорогого визуала</span></p>
+            <p>Разборы визуала проектов с бюджетом <span>$15-25k.</span></p>
+            <p>Индивидуальный разбор проектов + <span>план роста</span></p>
+            <div class="rate__lighter_2">
+              <p class="rate__price">$89</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

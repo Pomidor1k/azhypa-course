@@ -1,0 +1,176 @@
+body {
+  margin: 0;
+  /* background-image: url("./bg.jpg"); */
+  background-color: #000;
+  height: 3000px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 20px;
+}
+
+.rate__wrapper {
+  margin-top: 50px;
+  padding: 5px;
+  border-radius: 30px;
+}
+
+.rate__wrapper:first-of-type {
+  margin-top: 40px;
+}
+
+.rate {
+  color: #fff;
+  position: relative;
+  padding-bottom: 50px;
+  background-color: rgba(255, 255, 255, 0.064);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.rate::before {
+  content: "";
+  position: absolute;
+  inset: calc(0px - 3px);
+  border-radius: 30px;
+  padding: 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.16));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.rate:hover {
+  scale: 0.99;
+}
+
+.rate:active {
+  transform: scale(0.99);
+}
+
+.rate__header {
+  font-family: "Dela Gothic One", sans-serif;
+  text-transform: uppercase;
+  position: absolute;
+  background: rgb(255, 107, 0);
+  background: linear-gradient(180deg, rgba(255, 107, 0, 1) 9%, rgba(255, 199, 0, 1) 100%);
+  right: 50%;
+  transform: translateX(50%);
+  margin: -20px 0 0 30px;
+  text-align: center;
+  width: calc(100% - 60px);
+  padding: 10px;
+  border-radius: 20px 20px 100% 100%;
+}
+
+.rate__header h1 {
+  margin: 0;
+  font-size: 35px;
+  line-height: 1.2;
+}
+
+.rate__header p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+.rate__content {
+  font-family: "Montserrat", sans-serif;
+  transform: translateY(40px);
+  padding: 30px;
+  overflow-block: hidden;
+}
+
+.rate__content p {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.rate__content p span {
+  font-weight: 700;
+}
+
+.rate__blocked-option {
+  color: grey;
+  text-decoration: line-through;
+}
+
+.rate__price {
+  font-family: "Dela Gothic One", sans-serif;
+  color: #feac00;
+  font-weight: 400;
+  font-size: 24px !important;
+}
+
+.rate__lighter,
+.rate__lighter_2 {
+  position: relative;
+}
+
+.rate__lighter::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: 70%;
+  height: 50px;
+  background: #feae00;
+  z-index: 0;
+  filter: blur(60px);
+}
+
+.rate__lighter_2::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 20px;
+  background: #feae00;
+  z-index: 0;
+  filter: blur(50px);
+}
+
+.rate_2 .rate__header {
+  color: #000000;
+  background: rgb(0, 244, 200);
+  background: linear-gradient(180deg, rgba(0, 244, 200, 1) 9%, rgba(0, 255, 133, 1) 100%);
+}
+
+.rate_2 .rate__lighter::before,
+.rate_2 .rate__lighter_2::before {
+  background: rgb(0, 244, 200);
+}
+
+.rate_2 .rate__price {
+  color: rgb(0, 244, 200);
+}
+
+.rate_3 .rate__header {
+  background: rgb(255, 0, 61);
+  background: linear-gradient(180deg, rgba(255, 0, 61, 1) 9%, rgba(255, 0, 199, 1) 100%);
+}
+
+.rate_3 .rate__lighter::before,
+.rate_3 .rate__lighter_2::before {
+  background: rgb(255, 0, 61);
+}
+
+.rate_3 .rate__price {
+  color: rgb(255, 0, 61);
+}

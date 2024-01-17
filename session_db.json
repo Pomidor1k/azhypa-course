@@ -1,0 +1,31 @@
+{
+  "sessions": [
+    {
+      "id": "689818355:689818355",
+      "data": {
+        "userName": "hulio_zas",
+        "timeOut1": false,
+        "timeOut2": false,
+        "timeOut3": false,
+        "timeOut4": false,
+        "timeOut5": false,
+        "timeOut6": true,
+        "timeOut7": true,
+        "userRate": "basic"
+      }
+    },
+    {
+      "id": "514751965:514751965",
+      "data": {
+        "userName": "azhypa",
+        "timeOut1": true,
+        "timeOut2": true,
+        "timeOut3": true,
+        "timeOut4": true,
+        "timeOut5": true,
+        "timeOut6": true,
+        "timeOut7": true
+      }
+    }
+  ]
+}
