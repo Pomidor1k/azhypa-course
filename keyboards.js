@@ -1,6 +1,6 @@
 const { Markup } = require('telegraf')
 
-const webAppLink = "https://9eab-46-216-135-244.ngrok-free.app"
+const webAppLink = "http://194.87.98.93:3000"
 
 const welcomeMessageKeyboard = Markup.inlineKeyboard([
     [Markup.button.callback('Научиться за 58 минут🚀', 'botWelcomeMessage-prePaymentVideoAdvMessage')]
